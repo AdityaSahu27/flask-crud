@@ -26,7 +26,7 @@ pipeline {
             steps {
                 sh 'echo "building the repo"'
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
-                sh "docker build -t flaskapp:${env.BUILD_ID} ."
+                sh "docker build -t flasktest:${env.BUILD_ID} ."
                 sh "docker images"
             }
         }
@@ -41,7 +41,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying the flask application'
-                sh "docker run -itd -p 8070:5000 --name=flaskdemo flaskapp:${env.BUILD_ID}"
+                sh "docker run -itd -p 8050:5000 --name=flaskdemo flasktest:${env.BUILD_ID}"
                 sh 'docker ps -a'
             }
         }
